@@ -1,6 +1,6 @@
 import Foundation
 
-public struct MenuItem : Encodable {
+public struct MenuItem : Codable {
     
     public var title : String
     public var url : String
