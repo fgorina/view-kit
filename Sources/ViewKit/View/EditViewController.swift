@@ -33,7 +33,20 @@ public extension EditViewController {
 
     func render(req: Request, form: EditForm) -> EventLoopFuture<View> {
         return self.beforeRender(req: req, form: form)
-        .flatMap { req.view.render(self.editView, EditContext(form)) }
+        .flatMap {
+            
+             if let menuGetter = req as? MenuBuilder {
+                  do {
+                      return try menuGetter.getMenus().flatMap { (menu)  in
+                        return req.view.render(self.editView, EditContext(form, menu: menu))
+                      }
+                  }catch {
+                          return req.view.render(self.editView, EditContext(form))
+                      }
+              } else {
+                  return req.view.render(self.editView, EditContext(form))
+              }
+        }
     }
 
     func beforeInvalidRender(req: Request, form: EditForm) -> EventLoopFuture<EditForm> {

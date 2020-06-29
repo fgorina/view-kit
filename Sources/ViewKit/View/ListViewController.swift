@@ -26,7 +26,20 @@ public extension ListViewController {
         //TODO: pagination support
         return try self.beforeList(req: req, queryBuilder: Model.query(on: req.db)).all()
             .mapEach(\.viewContext)
-            .flatMap { req.view.render(self.listView, ListContext($0)) }
+            .flatMap { items in
+                if let menuGetter = req as? MenuBuilder {
+                    do {
+                        return try menuGetter.getMenus().flatMap { (menu)  in
+                            return req.view.render(self.listView, ListContext(items, menu: menu))
+                        }
+                    }catch {
+                            return req.view.render(self.listView, ListContext(items))
+                        }
+                } else {
+                    return req.view.render(self.listView, ListContext(items))
+                    
+                }
+        }
     }
 
     func setupListRoute(routes: RoutesBuilder) {
