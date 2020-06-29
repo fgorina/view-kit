@@ -5,6 +5,6 @@ import Vapor
 /// getMenus should get the request and return the menus
 /// In its simplest form may be hardwired
 /// Or may access a database for the permissions
-protocol MenuBuilder {
+public protocol MenuBuilder {
     func getMenus() throws -> EventLoopFuture<[MenuItem]>
 }
