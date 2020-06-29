@@ -9,7 +9,7 @@
 public struct ListContext<T: Encodable>: Encodable {
     /// encodable list property
     
-    public var menu : [MenuItem]
+    public var menu : [MenuItem] = []
     public var list: [T]
     
     public init(_ list: [T]) {
