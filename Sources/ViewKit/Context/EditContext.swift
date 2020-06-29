@@ -7,6 +7,8 @@
 
 /// a generic edit context for rendering forms
 public struct EditContext<T: Encodable>: Encodable {
+    
+    public var menu : [MenuItem] = []
     /// encodable edit property
     public var edit: T
     
