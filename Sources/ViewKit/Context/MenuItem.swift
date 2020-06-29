@@ -7,7 +7,7 @@ public struct MenuItem : Encodable {
     public var position : Int
     
     public init(title: String, url: String, position : Int){
-        selt.title = title
+        self.title = title
         self.url = url
         self.position = position
     }
